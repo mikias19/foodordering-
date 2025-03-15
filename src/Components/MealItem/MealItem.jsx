@@ -1,8 +1,9 @@
-import { useContext } from "react";
-import { Cartctx } from "../../Store/store-cart";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../Store/store-cart";
 
 export default function MealItem({ meal }) {
-  const { cartItems, addToCart } = useContext(Cartctx);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
   console.log(cartItems);
   return (
     <div
@@ -28,7 +29,7 @@ export default function MealItem({ meal }) {
       <div className="mb-4 flex items-center justify-center">
         <button
           className="bg-amber-400 rounded-md px-4 py-2 text-xl  transition-all duration-300 hover:text-slate-400 hover:bg-amber-500 cursor-pointer  active:scale-95"
-          onClick={() => addToCart(meal)}
+          onClick={() => dispatch(addToCart(meal))}
         >
           Add to Cart
         </button>

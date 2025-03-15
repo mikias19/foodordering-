@@ -2,8 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import Header from "./Components/Header/Header";
 import Meal from "./Components/Meal/Meal";
 import Modal from "./Components/Modal/Modal";
-import CartProvider from "./Store/store-cart";
-import MealProvider from "./Store/store-meals";
 import Order from "./Components/Order/Order";
 import Checkout from "./Components/Checkout/Checkout"; // Assuming you have a Checkout component
 
@@ -47,31 +45,29 @@ function App() {
     }
   }, [showModals.checkout]);
   return (
-    <MealProvider>
-      <CartProvider>
-        <div className="bg-gradient-to-b from-stone-700 to-stone-800 min-h-screen w-full pb-10">
-          {showModals.order && (
-            <Modal ref={orderModalRef} onCloseModal={closeOrderModal}>
-              <Order
-                onCloseModal={closeOrderModal}
-                onCheckout={openCheckoutModal}
-              />
-            </Modal>
-          )}
+    <>
+      <div className="bg-gradient-to-b from-stone-700 to-stone-800 min-h-screen w-full pb-10">
+        {showModals.order && (
+          <Modal ref={orderModalRef} onCloseModal={closeOrderModal}>
+            <Order
+              onCloseModal={closeOrderModal}
+              onCheckout={openCheckoutModal}
+            />
+          </Modal>
+        )}
 
-          {showModals.checkout && (
-            <Modal ref={checkoutModalRef} onCloseModal={closeCheckoutModal}>
-              <Checkout onCloseModal={closeCheckoutModal} />
-            </Modal>
-          )}
+        {showModals.checkout && (
+          <Modal ref={checkoutModalRef} onCloseModal={closeCheckoutModal}>
+            <Checkout onCloseModal={closeCheckoutModal} />
+          </Modal>
+        )}
 
-          <Header onClickCart={openOrderModal} />
-          <main className="max-w-[90%] w-[70rem] mx-auto pt-[8rem]">
-            <Meal />
-          </main>
-        </div>
-      </CartProvider>
-    </MealProvider>
+        <Header onClickCart={openOrderModal} />
+        <main className="max-w-[90%] w-[70rem] mx-auto pt-[8rem]">
+          <Meal />
+        </main>
+      </div>
+    </>
   );
 }
 

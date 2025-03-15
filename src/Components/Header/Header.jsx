@@ -1,9 +1,8 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import logo from "../../assets/logo.jpg";
-import { Cartctx } from "../../Store/store-cart";
 
 export default function Header({ onClickCart }) {
-  const { cartItems } = useContext(Cartctx);
+  const cartItems = useSelector((state) => state.cart.cartItems);
   return (
     <header className="flex items-center justify-around gap-2 h-[7rem] w-full  mx-auto  fixed   bg-stone-800  z-100">
       <div className="flex items-center justify-center gap-x-4">

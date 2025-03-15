@@ -1,10 +1,12 @@
-import { useContext } from "react";
-import { Cartctx } from "../../Store/store-cart";
-
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, removeFromCart } from "../../Store/store-cart";
 export default function Order({ onCloseModal, onCheckout }) {
-  const { cartItems, totalPrice, addToCart, removeFromCart } =
-    useContext(Cartctx);
-  console.log(totalPrice);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+
+  const dispatch = useDispatch();
+
+  console.log(cartItems, totalPrice);
   return (
     <div className="mx-2 my-4 max-w-[50rem] w-[40rem] h-[30rem] overflow-auto">
       <h1 className="leading-loose font-bold text-3xl ">Your Cart</h1>
@@ -35,7 +37,7 @@ export default function Order({ onCloseModal, onCheckout }) {
                 <button
                   type="button"
                   className="h-[30px] w-[30px] bg-slate-900 text-slate-100 text-xl rounded-full text-center mx-2  transition-transform duration-300 hover:bg-slate-800  active:scale-95 "
-                  onClick={() => addToCart(item)}
+                  onClick={() => dispatch(addToCart(item))}
                 >
                   +
                 </button>
@@ -45,7 +47,7 @@ export default function Order({ onCloseModal, onCheckout }) {
                 <button
                   type="button"
                   className="h-[30px] w-[30px] bg-slate-900 text-slate-100 text-xl rounded-full text-center ml-2  transition-transform duration-300 hover:bg-slate-800  active:scale-95 "
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => dispatch(removeFromCart(item.id))}
                 >
                   -
                 </button>

@@ -1,11 +1,11 @@
 import { useActionState } from "react";
 import Input from "../Input/Input";
-import { useContext } from "react";
-import { Cartctx } from "../../Store/store-cart";
 import { useHttp } from "../../http/post";
+import { useSelector } from "react-redux";
 
 export default function Form({ onCloseModal, handleOrdeCreated }) {
-  const { cartItems, totalPrice } = useContext(Cartctx);
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
   const { isLoading, errors, order, setOrder } = useHttp();
   function verfiyNotEmpty(text) {
     return text !== "";
@@ -92,6 +92,7 @@ export default function Form({ onCloseModal, handleOrdeCreated }) {
     }
   );
 
+  console.log(order);
   if (order.message && order.message.trim() !== "") {
     handleOrdeCreated(order.message);
   }

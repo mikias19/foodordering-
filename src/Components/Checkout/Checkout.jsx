@@ -1,17 +1,22 @@
 import Form from "../../Widget/Form/Form";
-import { useContext, useState } from "react";
-import { Cartctx } from "../../Store/store-cart";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { reset } from "../../Store/store-cart";
+
 export default function Checkout({ onCloseModal }) {
   const [order, setOrderCreated] = useState("");
   function handleOrdeCreated(message) {
     setOrderCreated(message);
   }
-  const { totalPrice, reset } = useContext(Cartctx);
 
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+
+  const dispatch = useDispatch();
   function closeOrderModal() {
     onCloseModal();
-    reset();
   }
+
+  console.log(order);
   return (
     <div className="max-w-[60rem] w-[50rem] mx-4 my-4">
       {order.trim() === "" ? (
@@ -36,7 +41,7 @@ export default function Checkout({ onCloseModal }) {
           <form>
             <button
               className="text-xl w-[50%] bg-amber-400  rounded-lg px-3 py-2 mt-6"
-              onClick={closeOrderModal}
+              onClick={onCloseModal}
             >
               Close
             </button>
